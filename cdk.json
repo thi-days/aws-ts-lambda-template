@@ -1,0 +1,13 @@
+{
+  "app": "node --import tsx infrastructure/bin/app.ts",
+  "watch": {
+    "include": ["src/**/*.ts", "infrastructure/**/*.ts"],
+    "exclude": ["dist", "coverage", "cdk.out", "node_modules"]
+  },
+  "context": {
+    "@aws-cdk/aws-lambda:recognizeLayerVersion": true,
+    "@aws-cdk/core:checkSecretUsage": true,
+    "@aws-cdk/core:target-partitions": ["aws"],
+    "@aws-cdk/aws-lambda:useCdkManagedLogGroup": true
+  }
+}
