@@ -35,6 +35,7 @@
     "@aws-lambda-powertools/metrics": "^2.33.1",
     "@aws-lambda-powertools/tracer": "^2.33.1",
     "@aws-sdk/client-ssm": "^3.1069.0",
+    "@aws/durable-execution-sdk-js": "^1.1.7",
     "@middy/core": "^7.6.7",
     "aws-cdk-lib": "^2.259.0",
     "constructs": "^10.6.0",
