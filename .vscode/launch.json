@@ -1,0 +1,49 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Debug Jest Tests",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--experimental-vm-modules",
+        "--enable-source-maps",
+        "${workspaceFolder}/node_modules/jest/bin/jest.js",
+        "--runInBand"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "AWS_REGION": "us-east-1",
+        "POWERTOOLS_LOG_LEVEL": "DEBUG",
+        "POWERTOOLS_SERVICE_NAME": "typescript-lambda-starter",
+        "STAGE": "test"
+      }
+    },
+    {
+      "name": "Debug Current Jest File",
+      "type": "node",
+      "request": "launch",
+      "cwd": "${workspaceFolder}",
+      "runtimeExecutable": "node",
+      "runtimeArgs": [
+        "--experimental-vm-modules",
+        "--enable-source-maps",
+        "${workspaceFolder}/node_modules/jest/bin/jest.js",
+        "--runInBand",
+        "--runTestsByPath",
+        "${file}"
+      ],
+      "console": "integratedTerminal",
+      "internalConsoleOptions": "neverOpen",
+      "env": {
+        "AWS_REGION": "us-east-1",
+        "POWERTOOLS_LOG_LEVEL": "DEBUG",
+        "POWERTOOLS_SERVICE_NAME": "typescript-lambda-starter",
+        "STAGE": "test"
+      }
+    }
+  ]
+}

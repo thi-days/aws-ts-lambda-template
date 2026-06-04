@@ -8,6 +8,7 @@ const handlersDirectory = 'src/handlers';
 const outputDirectory = 'dist/handlers';
 
 const files = await readdir(handlersDirectory);
+// Each file in src/handlers is treated as an independent Lambda entry point.
 const entryPoints = files
   .filter((file) => file.endsWith('.ts'))
   .map((file) => join(handlersDirectory, file));

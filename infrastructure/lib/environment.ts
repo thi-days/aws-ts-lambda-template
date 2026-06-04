@@ -53,8 +53,7 @@ export const environmentConfigs: Record<StageName, EnvironmentConfig> = {
   }
 };
 
-const isStageName = (value: string): value is StageName =>
-  Object.hasOwn(environmentConfigs, value);
+const isStageName = (value: string): value is StageName => Object.hasOwn(environmentConfigs, value);
 
 export const getEnvironmentConfig = (stageName: string | undefined): EnvironmentConfig => {
   const requestedStageName = stageName ?? 'dev';

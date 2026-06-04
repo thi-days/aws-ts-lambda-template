@@ -35,6 +35,7 @@ export class StarterLambdaFunction extends Construct {
       code: lambda.Code.fromAsset(props.codePath),
       description: props.description,
       environment: {
+        // Source maps make bundled stack traces point back to the TypeScript source.
         NODE_OPTIONS: '--enable-source-maps',
         PARAMETER_PATH_PREFIX: props.config.parameterPathPrefix,
         POWERTOOLS_LOG_LEVEL: props.config.logLevel,

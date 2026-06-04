@@ -6,6 +6,7 @@ const config = getConfig();
 type MetricUnitValue = (typeof MetricUnit)[keyof typeof MetricUnit];
 
 const defaultMetricDimensions = {
+  // Powertools adds the service dimension from serviceName; stage is the template-specific default.
   stage: config.stage
 } as const;
 

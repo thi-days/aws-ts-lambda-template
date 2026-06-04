@@ -40,6 +40,7 @@ export const loadConfig = (environment: NodeJS.ProcessEnv = process.env): AppCon
 };
 
 export const getConfig = (): AppConfig => {
+  // Keep config lazy so tests and local scripts can set env vars before first use.
   cachedConfig ??= loadConfig();
 
   return cachedConfig;
