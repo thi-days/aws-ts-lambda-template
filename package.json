@@ -5,6 +5,9 @@
   "type": "module",
   "private": true,
   "sideEffects": false,
+  "overrides": {
+    "js-yaml": "^4.2.0"
+  },
   "engines": {
     "node": ">=24"
   },
