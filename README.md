@@ -82,6 +82,23 @@ npm run build:watch
 The build writes bundled Lambda handlers to `dist/handlers` and declaration files to
 `dist/types`.
 
+## Application Entry Point
+
+The initial application handler lives in `src/handlers/app.ts`.
+
+Use it as the first implementation reference for real API Gateway Lambda work. It shows the
+expected shape for:
+
+- explicit AWS Lambda event, context, and response types
+- `async` handler implementation
+- shared middleware wrapping
+- correlation ID propagation
+- structured logging
+- standardized JSON responses
+
+The health check remains separate in `src/handlers/health.ts` and is intended for operational
+readiness checks.
+
 ## Testing
 
 Jest is configured for ESM TypeScript through SWC.
@@ -161,7 +178,8 @@ See [docs/observability.md](docs/observability.md) for conventions.
 
 ## Example Lambda Handler
 
-Handlers use explicit AWS Lambda types and `async` functions:
+`src/handlers/app.ts` is the deployed starter handler for the root route. Handlers use explicit AWS
+Lambda types and `async` functions:
 
 ```typescript
 import type {
@@ -169,10 +187,10 @@ import type {
   APIGatewayProxyStructuredResultV2,
   Context
 } from 'aws-lambda';
-import { withApiGatewayMiddleware } from './middlewares/api-gateway.js';
-import { ok } from './utils/http.js';
+import { withApiGatewayMiddleware } from '../middlewares/api-gateway.js';
+import { ok } from '../utils/http.js';
 
-const handler = async (
+const appHandler = async (
   event: APIGatewayProxyEventV2,
   context: Context
 ): Promise<APIGatewayProxyStructuredResultV2> => {
@@ -182,7 +200,7 @@ const handler = async (
   });
 };
 
-export const main = withApiGatewayMiddleware(handler, {
+export const handler = withApiGatewayMiddleware(appHandler, {
   operationName: 'example'
 });
 ```

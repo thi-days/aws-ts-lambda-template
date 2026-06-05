@@ -34,6 +34,28 @@ export const createApiGatewayEvent = (
   ...overrides
 });
 
+export const createApiGatewayRouteEvent = (
+  routeKey: string,
+  path: string,
+  overrides: Partial<APIGatewayProxyEventV2> = {}
+): APIGatewayProxyEventV2 => {
+  const baseEvent = createApiGatewayEvent();
+
+  return createApiGatewayEvent({
+    rawPath: path,
+    requestContext: {
+      ...baseEvent.requestContext,
+      http: {
+        ...baseEvent.requestContext.http,
+        path
+      },
+      routeKey
+    },
+    routeKey,
+    ...overrides
+  });
+};
+
 export const createLambdaContext = (overrides: Partial<Context> = {}): Context => ({
   awsRequestId: 'aws-request-id',
   callbackWaitsForEmptyEventLoop: false,
