@@ -96,8 +96,9 @@ expected shape for:
 - structured logging
 - standardized JSON responses
 
-The health check remains separate in `src/handlers/health.ts` and is intended for operational
-readiness checks.
+The health check remains separate in `src/handlers/health.ts`. For Lambda, this is a lightweight
+smoke-test endpoint for deployment verification, routing checks, configuration validation, and
+observability signals rather than a long-lived instance readiness probe.
 
 ## Testing
 
