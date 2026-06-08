@@ -6,16 +6,22 @@ import { Construct } from 'constructs';
 import type { EnvironmentConfig } from '../lib/environment.js';
 
 export interface StarterLambdaFunctionProps {
+  /** Directory containing built Lambda handler files. */
   codePath: string;
+  /** Environment-specific Lambda settings. */
   config: EnvironmentConfig;
+  /** Human-readable Lambda description. */
   description: string;
+  /** Suffix appended to the stage-qualified function name. */
   functionNameSuffix: string;
+  /** Lambda runtime handler string. */
   handler: string;
 }
 
 export class StarterLambdaFunction extends Construct {
+  /** The Lambda function instance */
   public readonly function: lambda.Function;
-
+  /** The CloudWatch log group for the Lambda function */
   public readonly logGroup: logs.LogGroup;
 
   public constructor(scope: Construct, id: string, props: StarterLambdaFunctionProps) {
