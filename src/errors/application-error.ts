@@ -1,8 +1,6 @@
-import type { JsonValue } from '../types/api.js';
-
 export interface ApplicationErrorOptions {
   code: string;
-  details?: JsonValue;
+  details?: unknown;
   message: string;
   statusCode: number;
   cause?: unknown;
@@ -10,11 +8,8 @@ export interface ApplicationErrorOptions {
 
 export class ApplicationError extends Error {
   public readonly code: string;
-
-  public readonly details?: JsonValue;
-
+  public readonly details?: unknown;
   public readonly isOperational = true;
-
   public readonly statusCode: number;
 
   public constructor(options: ApplicationErrorOptions) {
@@ -30,7 +25,7 @@ export class ApplicationError extends Error {
 }
 
 export class ValidationError extends ApplicationError {
-  public constructor(message = 'The request is invalid.', details?: JsonValue) {
+  public constructor(message = 'The request is invalid.', details?: unknown) {
     const options: ApplicationErrorOptions = {
       code: 'VALIDATION_ERROR',
       message,

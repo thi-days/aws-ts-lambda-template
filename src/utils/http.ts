@@ -7,14 +7,14 @@ import {
   UnauthorizedError,
   ValidationError
 } from '../errors/index.js';
-import type { ApiErrorBody, ApiSuccessBody, JsonValue } from '../types/api.js';
+import type { ApiErrorBody, ApiSuccessBody } from '../types/api.js';
 import { CORRELATION_ID_HEADER } from './correlation.js';
 
 const jsonHeaders = {
   'content-type': 'application/json'
 } as const;
 
-const createSuccessBody = <TData extends JsonValue>(
+const createSuccessBody = <TData>(
   data: TData,
   correlationId?: string
 ): ApiSuccessBody<TData> => {
@@ -40,7 +40,7 @@ const createErrorBody = (error: ApplicationError, correlationId?: string): ApiEr
   };
 
   if (error.details !== undefined) {
-    body.error.details = error.details;
+    body.error.details = error.details as Record<string, unknown>;
   }
 
   if (correlationId !== undefined) {
@@ -70,11 +70,11 @@ export const jsonResponse = (
   };
 };
 
-export const ok = (data: JsonValue, correlationId?: string): APIGatewayProxyStructuredResultV2 =>
+export const ok = (data: unknown, correlationId?: string): APIGatewayProxyStructuredResultV2 =>
   jsonResponse(200, createSuccessBody(data, correlationId), correlationId);
 
 export const created = (
-  data: JsonValue,
+  data: unknown,
   correlationId?: string
 ): APIGatewayProxyStructuredResultV2 =>
   jsonResponse(201, createSuccessBody(data, correlationId), correlationId);

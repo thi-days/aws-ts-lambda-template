@@ -1,7 +1,6 @@
 import { getConfig } from '../config/index.js';
-import type { JsonObject } from '../types/api.js';
 
-export interface HealthStatus extends JsonObject {
+export interface HealthStatus {
   region: string;
   service: string;
   stage: string;
