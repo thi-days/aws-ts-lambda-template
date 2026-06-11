@@ -14,7 +14,7 @@ import { parseJsonBody } from './helpers/api-gateway.js';
 describe('HTTP response helpers', () => {
   it('returns a standard success body', () => {
     const response = ok({ message: 'done' }, 'correlation-id');
-    const body = parseJsonBody(response) as ApiSuccessBody;
+    const body = parseJsonBody(response) as ApiSuccessBody<{ message: string }>;
 
     expect(response.statusCode).toBe(200);
     expect(response.headers).toMatchObject({

@@ -19,7 +19,12 @@ describe('health handler', () => {
     });
 
     const response = await handler(event, createLambdaContext());
-    const body = parseJsonBody(response) as ApiSuccessBody;
+    const body = parseJsonBody(response) as ApiSuccessBody<{
+      region: string;
+      service: string;
+      stage: string;
+      status: string;
+    }>;
 
     expect(response.statusCode).toBe(200);
     expect(response.headers).toMatchObject({
