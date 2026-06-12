@@ -1,4 +1,4 @@
-# TypeScript Lambda Starter
+# AWS TypeScript Lambda Template
 
 Production-grade starter template for AWS Lambda functions written in strict TypeScript.
 
@@ -141,7 +141,7 @@ Deploy after bootstrapping the target AWS account and region:
 
 ```bash
 npm run build
-npx cdk deploy typescript-lambda-starter-dev -c stage=dev
+npx cdk deploy aws-ts-lambda-template-dev -c stage=dev
 ```
 
 Environment settings live in `infrastructure/lib/environment.ts`.

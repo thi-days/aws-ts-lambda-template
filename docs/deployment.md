@@ -17,7 +17,7 @@ Environment-specific configuration lives in `infrastructure/lib/environment.ts`.
 ```bash
 npm run build
 npx cdk synth -c stage=dev
-npx cdk deploy typescript-lambda-starter-dev -c stage=dev
+npx cdk deploy aws-ts-lambda-template-dev -c stage=dev
 ```
 
 Change `stage` and stack name for `staging` or `production`.

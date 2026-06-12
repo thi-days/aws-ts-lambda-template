@@ -14,10 +14,7 @@ const jsonHeaders = {
   'content-type': 'application/json'
 } as const;
 
-const createSuccessBody = <TData>(
-  data: TData,
-  correlationId?: string
-): ApiSuccessBody<TData> => {
+const createSuccessBody = <TData>(data: TData, correlationId?: string): ApiSuccessBody<TData> => {
   const body: ApiSuccessBody<TData> = {
     data,
     success: true
@@ -73,10 +70,7 @@ export const jsonResponse = (
 export const ok = (data: unknown, correlationId?: string): APIGatewayProxyStructuredResultV2 =>
   jsonResponse(200, createSuccessBody(data, correlationId), correlationId);
 
-export const created = (
-  data: unknown,
-  correlationId?: string
-): APIGatewayProxyStructuredResultV2 =>
+export const created = (data: unknown, correlationId?: string): APIGatewayProxyStructuredResultV2 =>
   jsonResponse(201, createSuccessBody(data, correlationId), correlationId);
 
 export const badRequest = (

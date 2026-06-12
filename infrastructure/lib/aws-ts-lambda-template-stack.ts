@@ -5,12 +5,12 @@ import type { Construct } from 'constructs';
 import { StarterLambdaFunction } from '../constructs/lambda-function.js';
 import type { EnvironmentConfig } from './environment.js';
 
-export interface LambdaStarterStackProps extends cdk.StackProps {
+export interface AwsTsLambdaTemplateStackProps extends cdk.StackProps {
   config: EnvironmentConfig;
 }
 
-export class LambdaStarterStack extends cdk.Stack {
-  public constructor(scope: Construct, id: string, props: LambdaStarterStackProps) {
+export class AwsTsLambdaTemplateStack extends cdk.Stack {
+  public constructor(scope: Construct, id: string, props: AwsTsLambdaTemplateStackProps) {
     super(scope, id, props);
 
     const appFunction = new StarterLambdaFunction(this, 'AppFunction', {
@@ -31,7 +31,7 @@ export class LambdaStarterStack extends cdk.Stack {
 
     const httpApi = new apigatewayv2.HttpApi(this, 'HttpApi', {
       apiName: `${props.config.serviceName}-${props.config.stageName}`,
-      description: 'Sample HTTP API for the TypeScript Lambda starter.'
+      description: 'Sample HTTP API for the AWS TypeScript Lambda template.'
     });
 
     httpApi.addRoutes({

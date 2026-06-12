@@ -16,7 +16,11 @@ describe('app handler', () => {
     });
 
     const response = await handler(event, createLambdaContext());
-    const body = parseJsonBody(response) as ApiSuccessBody<{ message: string; requestId: string; route: string }>;
+    const body = parseJsonBody(response) as ApiSuccessBody<{
+      message: string;
+      requestId: string;
+      route: string;
+    }>;
 
     expect(response.statusCode).toBe(200);
     expect(response.headers).toMatchObject({

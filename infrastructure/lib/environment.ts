@@ -15,14 +15,14 @@ export interface EnvironmentConfig {
   timeout: cdk.Duration;
 }
 
-const serviceName = 'typescript-lambda-starter';
+const serviceName = 'aws-ts-lambda-template';
 
 export const environmentConfigs: Record<StageName, EnvironmentConfig> = {
   dev: {
     logLevel: 'DEBUG',
     logRetention: logs.RetentionDays.ONE_WEEK,
     memorySize: 256,
-    metricsNamespace: 'TypeScriptLambdaStarter',
+    metricsNamespace: 'AwsTsLambdaTemplate',
     parameterPathPrefix: `/${serviceName}/dev`,
     removalPolicy: cdk.RemovalPolicy.DESTROY,
     serviceName,
@@ -33,7 +33,7 @@ export const environmentConfigs: Record<StageName, EnvironmentConfig> = {
     logLevel: 'INFO',
     logRetention: logs.RetentionDays.SIX_MONTHS,
     memorySize: 512,
-    metricsNamespace: 'TypeScriptLambdaStarter',
+    metricsNamespace: 'AwsTsLambdaTemplate',
     parameterPathPrefix: `/${serviceName}/production`,
     removalPolicy: cdk.RemovalPolicy.RETAIN,
     serviceName,
@@ -44,7 +44,7 @@ export const environmentConfigs: Record<StageName, EnvironmentConfig> = {
     logLevel: 'INFO',
     logRetention: logs.RetentionDays.ONE_MONTH,
     memorySize: 256,
-    metricsNamespace: 'TypeScriptLambdaStarter',
+    metricsNamespace: 'AwsTsLambdaTemplate',
     parameterPathPrefix: `/${serviceName}/staging`,
     removalPolicy: cdk.RemovalPolicy.DESTROY,
     serviceName,

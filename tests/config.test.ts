@@ -8,9 +8,9 @@ describe('loadConfig', () => {
     expect(config).toEqual({
       awsRegion: 'us-east-1',
       logLevel: 'INFO',
-      metricsNamespace: 'TypeScriptLambdaStarter',
-      parameterPathPrefix: '/typescript-lambda-starter/dev',
-      serviceName: 'typescript-lambda-starter',
+      metricsNamespace: 'AwsTsLambdaTemplate',
+      parameterPathPrefix: '/aws-ts-lambda-template/dev',
+      serviceName: 'aws-ts-lambda-template',
       stage: 'dev'
     });
   });

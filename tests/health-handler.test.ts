@@ -34,7 +34,7 @@ describe('health handler', () => {
       correlationId: 'client-correlation-id',
       data: {
         region: 'us-east-1',
-        service: 'typescript-lambda-starter',
+        service: 'aws-ts-lambda-template',
         stage: 'test',
         status: 'ok'
       },

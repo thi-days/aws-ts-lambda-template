@@ -14,6 +14,4 @@ export interface ApiErrorBody {
   correlationId?: string;
 }
 
-export type ApiResponseBody<TData> =
-  | ApiSuccessBody<TData>
-  | ApiErrorBody;
+export type ApiResponseBody<TData> = ApiSuccessBody<TData> | ApiErrorBody;

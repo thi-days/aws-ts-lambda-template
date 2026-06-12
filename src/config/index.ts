@@ -8,10 +8,10 @@ const stageSchema = z.enum(['dev', 'staging', 'production', 'test']).default('de
 
 const environmentSchema = z.object({
   AWS_REGION: z.string().min(1).default('us-east-1'),
-  PARAMETER_PATH_PREFIX: z.string().min(1).default('/typescript-lambda-starter/dev'),
+  PARAMETER_PATH_PREFIX: z.string().min(1).default('/aws-ts-lambda-template/dev'),
   POWERTOOLS_LOG_LEVEL: logLevelSchema,
-  POWERTOOLS_METRICS_NAMESPACE: z.string().min(1).default('TypeScriptLambdaStarter'),
-  POWERTOOLS_SERVICE_NAME: z.string().min(1).default('typescript-lambda-starter'),
+  POWERTOOLS_METRICS_NAMESPACE: z.string().min(1).default('AwsTsLambdaTemplate'),
+  POWERTOOLS_SERVICE_NAME: z.string().min(1).default('aws-ts-lambda-template'),
   STAGE: stageSchema
 });
 

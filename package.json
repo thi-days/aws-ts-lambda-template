@@ -1,7 +1,7 @@
 {
-  "name": "typescript-lambda-starter",
+  "name": "aws-ts-lambda-template",
   "version": "0.1.0",
-  "description": "Production-grade TypeScript starter template for AWS Lambda.",
+  "description": "Production-grade AWS TypeScript Lambda template.",
   "type": "module",
   "private": true,
   "sideEffects": false,
