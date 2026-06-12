@@ -14,7 +14,7 @@ const appHandler = async (
 ): Promise<APIGatewayProxyStructuredResultV2> => {
   const correlationId = getCorrelationId(event);
 
-  logger.info('Starter request received', {
+  logger.info('Application request received', {
     awsRequestId: context.awsRequestId,
     correlationId,
     routeKey: event.routeKey
@@ -32,5 +32,5 @@ const appHandler = async (
 };
 
 export const handler = withApiGatewayMiddleware(appHandler, {
-  operationName: 'starterApp'
+  operationName: 'app'
 });

@@ -60,4 +60,4 @@ jobs:
         run: npx cdk synth -c stage=${{ inputs.environment }}
 
       - name: Deploy CDK
-        run: npx cdk deploy typescript-lambda-starter-${{ inputs.environment }} -c stage=${{ inputs.environment }} --require-approval never
+        run: npx cdk deploy aws-ts-lambda-template-${{ inputs.environment }} -c stage=${{ inputs.environment }} --require-approval never

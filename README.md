@@ -1,6 +1,6 @@
 # AWS TypeScript Lambda Template
 
-Production-grade starter template for AWS Lambda functions written in strict TypeScript.
+Production-grade AWS TypeScript Lambda template for AWS Lambda functions.
 
 This repository is intentionally small: it gives teams a maintainable Lambda foundation with
 AWS-native infrastructure, structured observability, typed handlers, Jest tests, and CI/CD
@@ -179,7 +179,7 @@ See [docs/observability.md](docs/observability.md) for conventions.
 
 ## Example Lambda Handler
 
-`src/handlers/app.ts` is the deployed starter handler for the root route. Handlers use explicit AWS
+`src/handlers/app.ts` is the deployed application handler for the root route. Handlers use explicit AWS
 Lambda types and `async` functions:
 
 ```typescript

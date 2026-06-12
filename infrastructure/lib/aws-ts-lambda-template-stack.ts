@@ -2,7 +2,7 @@ import * as cdk from 'aws-cdk-lib';
 import * as apigatewayv2 from 'aws-cdk-lib/aws-apigatewayv2';
 import * as integrations from 'aws-cdk-lib/aws-apigatewayv2-integrations';
 import type { Construct } from 'constructs';
-import { StarterLambdaFunction } from '../constructs/lambda-function.js';
+import { TemplateLambdaFunction } from '../constructs/lambda-function.js';
 import type { EnvironmentConfig } from './environment.js';
 
 export interface AwsTsLambdaTemplateStackProps extends cdk.StackProps {
@@ -13,7 +13,7 @@ export class AwsTsLambdaTemplateStack extends cdk.Stack {
   public constructor(scope: Construct, id: string, props: AwsTsLambdaTemplateStackProps) {
     super(scope, id, props);
 
-    const appFunction = new StarterLambdaFunction(this, 'AppFunction', {
+    const appFunction = new TemplateLambdaFunction(this, 'AppFunction', {
       codePath: 'dist/handlers',
       config: props.config,
       description: 'Initial API Gateway Lambda entry point for application code.',
@@ -21,7 +21,7 @@ export class AwsTsLambdaTemplateStack extends cdk.Stack {
       handler: 'app.handler'
     });
 
-    const healthFunction = new StarterLambdaFunction(this, 'HealthFunction', {
+    const healthFunction = new TemplateLambdaFunction(this, 'HealthFunction', {
       codePath: 'dist/handlers',
       config: props.config,
       description: 'Operational health check Lambda handler.',
