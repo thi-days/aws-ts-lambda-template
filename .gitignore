@@ -1,5 +1,4 @@
 node_modules/
-AGENTS.md
 dist/
 coverage/
 cdk.out/

@@ -1,10 +1,11 @@
 # AWS TypeScript Lambda Template
 
-Production-grade AWS TypeScript Lambda template for AWS Lambda functions.
+Production-grade AWS TypeScript Lambda template for teams that want a serious starting point
+without inheriting a framework-sized codebase.
 
-This repository is intentionally small: it gives teams a maintainable Lambda foundation with
-AWS-native infrastructure, structured observability, typed handlers, Jest tests, and CI/CD
-without introducing a large application framework.
+This template is intentionally small, but it is not bare bones. It ships the parts that make a
+Lambda service feel production-ready on day one: AWS-native infrastructure, structured
+observability, typed handlers, fast builds, tests, and CI/CD.
 
 ## Features
 
@@ -22,31 +23,6 @@ without introducing a large application framework.
 - Runtime environment validation with Zod
 - AWS CDK v2 infrastructure for `dev`, `staging`, and `production`
 - GitHub Actions CI and OIDC-based deployment workflow
-
-## Folder Structure
-
-```text
-.
-├── src
-│   ├── handlers
-│   ├── middlewares
-│   ├── services
-│   ├── utils
-│   ├── errors
-│   ├── observability
-│   ├── config
-│   └── types
-├── tests
-├── infrastructure
-│   ├── bin
-│   ├── lib
-│   └── constructs
-├── .github
-│   └── workflows
-├── .vscode
-├── docs
-└── scripts
-```
 
 ## Getting Started
 
@@ -86,8 +62,8 @@ The build writes bundled Lambda handlers to `dist/handlers` and declaration file
 
 The initial application handler lives in `src/handlers/app.ts`.
 
-Use it as the first implementation reference for real API Gateway Lambda work. It shows the
-expected shape for:
+Use it as the first implementation reference for real API Gateway Lambda work. It demonstrates
+the standards this template is opinionated about:
 
 - explicit AWS Lambda event, context, and response types
 - `async` handler implementation
@@ -146,6 +122,18 @@ npx cdk deploy aws-ts-lambda-template-dev -c stage=dev
 
 Environment settings live in `infrastructure/lib/environment.ts`.
 
+For local deploys, configure AWS credentials with your usual AWS CLI flow before running CDK.
+The simplest path is an SSO-backed profile:
+
+```bash
+aws configure sso
+aws sso login --profile my-profile
+AWS_PROFILE=my-profile npx cdk deploy aws-ts-lambda-template-dev -c stage=dev
+```
+
+Static access keys also work for local experimentation through `aws configure`, but avoid using
+long-lived keys for shared environments. For GitHub Actions deployment, use OIDC instead.
+
 ## GitHub Actions
 
 `ci.yml` runs on pull requests and pushes to `main`:
@@ -159,16 +147,27 @@ Environment settings live in `infrastructure/lib/environment.ts`.
 7. Build application
 8. Synthesize CDK infrastructure
 
-`deploy.yml` is manually dispatched and uses GitHub OIDC. Configure each GitHub Environment
-(`dev`, `staging`, `production`) with:
+`deploy.yml` is manually dispatched and uses GitHub OIDC, so deployments do not need stored AWS
+access keys. The workflow requests `id-token: write`, assumes an AWS IAM role, synthesizes CDK,
+and deploys the selected environment.
 
-- `AWS_ROLE_TO_ASSUME`: IAM role ARN trusted by GitHub OIDC
+To set it up:
 
-See [docs/deployment.md](docs/deployment.md) for the trust policy shape.
+1. Add the GitHub OIDC provider in AWS IAM for `https://token.actions.githubusercontent.com`.
+2. Create an IAM role for each environment, or one tightly scoped shared role.
+3. In the role trust policy, restrict access to this repository and GitHub Environment, for example
+   `repo:<github-org>/<repo-name>:environment:dev`.
+4. Give the role the permissions required to deploy the CDK stack.
+5. In GitHub, create the `dev`, `staging`, and `production` Environments.
+6. Add `AWS_ROLE_TO_ASSUME` to each Environment with the IAM role ARN trusted by GitHub OIDC.
+
+Use Environment protection rules for approvals on `staging` and `production` if your workflow
+requires them. See [docs/deployment.md](docs/deployment.md) for the trust policy shape.
 
 ## Observability
 
-AWS Powertools is configured in `src/observability`:
+AWS Powertools is configured in `src/observability`, giving the template real production signals
+instead of print statements with good intentions:
 
 - Logger: structured JSON logs, Lambda context enrichment, cold start detection, correlation IDs
 - Metrics: CloudWatch EMF, `SuccessfulRequests`, `FailedRequests`, `ValidationErrors`, custom metrics
