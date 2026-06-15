@@ -4,6 +4,14 @@
   "description": "Production-grade AWS TypeScript Lambda template.",
   "type": "module",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/thi-days/aws-ts-lambda-template.git"
+  },
+  "bugs": {
+    "url": "https://github.com/thi-days/aws-ts-lambda-template/issues"
+  },
+  "homepage": "https://github.com/thi-days/aws-ts-lambda-template#readme",
   "sideEffects": false,
   "overrides": {
     "js-yaml": "^4.2.0"
