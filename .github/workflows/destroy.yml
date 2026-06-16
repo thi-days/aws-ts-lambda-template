@@ -1,0 +1,67 @@
+name: Destroy
+
+on:
+  workflow_dispatch:
+    inputs:
+      environment:
+        description: Environment to destroy
+        options:
+          - dev
+          - staging
+          - production
+        required: true
+        type: choice
+      aws-region:
+        default: us-east-1
+        description: AWS region
+        required: true
+        type: string
+      confirmation:
+        description: Type destroy to confirm
+        required: true
+        type: string
+
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: destroy-${{ inputs.environment }}
+  cancel-in-progress: false
+
+jobs:
+  destroy:
+    name: Destroy ${{ inputs.environment }}
+    runs-on: ubuntu-latest
+    environment: ${{ inputs.environment }}
+
+    steps:
+      - name: Validate confirmation
+        if: ${{ inputs.confirmation != 'destroy' }}
+        run: |
+          echo "Destruction cancelled. Type 'destroy' in the confirmation input to continue."
+          exit 1
+
+      - name: Checkout code
+        uses: actions/checkout@v6
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 24
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build application
+        run: npm run build
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v6
+        with:
+          aws-region: ${{ inputs.aws-region }}
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+
+      - name: Destroy CDK stack
+        run: npx cdk destroy aws-ts-lambda-template-${{ inputs.environment }} -c stage=${{ inputs.environment }} --force

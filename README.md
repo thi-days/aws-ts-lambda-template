@@ -151,6 +151,10 @@ long-lived keys for shared environments. For GitHub Actions deployment, use OIDC
 access keys. The workflow requests `id-token: write`, assumes an AWS IAM role, synthesizes CDK,
 and deploys the selected environment.
 
+`destroy.yml` is also manually dispatched and uses the same GitHub Environment and OIDC role. It
+destroys the selected CDK stack with `cdk destroy --force`; to reduce accidental teardown, the
+workflow requires the confirmation input to be exactly `destroy`.
+
 To set it up:
 
 1. Add the GitHub OIDC provider in AWS IAM for `https://token.actions.githubusercontent.com`.
