@@ -16,8 +16,6 @@ When changing this project, preserve these priorities:
 
 Avoid overengineering. Prefer readable, conventional code over clever abstractions.
 
----
-
 ## Architecture Overview
 
 The application code lives under `src/` and is separated by responsibility:
@@ -39,8 +37,6 @@ Infrastructure code lives under `infrastructure/`:
 
 Operational documentation lives in `README.md` and `docs/`.
 
----
-
 ## Runtime Standards
 
 - Use the latest stable Node.js runtime supported by AWS Lambda managed runtimes.
@@ -55,8 +51,6 @@ Operational documentation lives in `README.md` and `docs/`.
 
 Reference:
 https://docs.aws.amazon.com/lambda/latest/dg/lambda-nodejs.html
-
----
 
 ## Lambda Configuration
 
@@ -74,8 +68,6 @@ The primary application entry point is `src/handlers/app.ts`.
 The health handler in `src/handlers/health.ts` is a lightweight smoke-test endpoint for deployment
 verification, routing checks, configuration validation, and observability signals. It is not a
 long-lived instance readiness probe.
-
----
 
 ## TypeScript
 
@@ -102,8 +94,6 @@ Examples:
 - EventBridge handlers should use `EventBridgeEvent` and `Context`.
 - Do not leave handler event, context, or response values inferred as `any` or broad object types.
 
----
-
 ## Build
 
 esbuild is used for fast Lambda bundling.
@@ -123,8 +113,6 @@ Expected scripts:
 - `clean`
 
 Each `src/handlers/*.ts` file is treated as a Lambda entry point and bundled into `dist/handlers`.
-
----
 
 ## Testing
 
@@ -147,8 +135,6 @@ Expected scripts:
 
 Keep `.vscode/launch.json` able to debug all Jest tests and the current Jest file.
 
----
-
 ## Linting And Formatting
 
 Use:
@@ -167,8 +153,6 @@ Expected scripts:
 - `format:check`
 
 CI must fail on lint, format, test, coverage, build, or CDK synth failures.
-
----
 
 ## Observability
 
@@ -224,8 +208,6 @@ Tracing should preserve:
 - Cold start annotation
 - Service name annotation
 
----
-
 ## Middleware
 
 Middleware should stay focused and practical.
@@ -241,8 +223,6 @@ Current middleware responsibilities:
 
 Do not introduce a framework or broad abstraction unless it clearly reduces repeated production code.
 
----
-
 ## Error Handling
 
 Use the shared error hierarchy in `src/errors`.
@@ -257,8 +237,6 @@ Expected error types:
 - `InternalServerError`
 
 Unknown errors should be normalized before being returned to API Gateway.
-
----
 
 ## API Responses
 
@@ -276,8 +254,6 @@ Expected helpers:
 
 Responses must keep a consistent JSON structure for success and error bodies.
 
----
-
 ## Configuration
 
 Runtime configuration is validated in `src/config`.
@@ -288,8 +264,6 @@ Configuration behavior should preserve:
 - Type-safe access
 - Environment-specific values
 - Safe defaults for local development and tests
-
----
 
 ## Infrastructure
 
@@ -310,8 +284,6 @@ Infrastructure should preserve:
 - Separate environment config for `dev`, `staging`, and `production`
 
 Keep reusable infrastructure behavior inside constructs, and keep stack files readable.
-
----
 
 ## GitHub Actions
 
@@ -339,8 +311,6 @@ AWS credentials must come from GitHub OIDC. Do not add long-lived AWS access key
 Reference:
 https://docs.github.com/en/actions/deployment/security-hardening-your-deployments/about-security-hardening-with-openid-connect
 
----
-
 ## Documentation
 
 Keep documentation current when behavior changes.
@@ -362,8 +332,6 @@ README should cover:
 - Example logger usage
 
 Use `docs/` for operational detail that would make the README too long.
-
----
 
 ## Code Quality
 
